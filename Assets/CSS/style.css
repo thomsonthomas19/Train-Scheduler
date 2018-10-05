@@ -1,0 +1,30 @@
+::placeholder {
+    color: black;
+    opacity: 1;
+}
+
+.input {
+    border-style: dashed;
+    border-color:black;
+}
+
+    .table {
+        margin:1rem auto;
+    }
+
+#main-hero {
+    width:65%;
+    height: auto;
+    background-color: #ffffff;
+    padding: 4px;
+}
+
+
+#info-row {
+    padding: 1rem auto;
+    margin: 1rem auto;
+}
+
+#train-name {
+    margin-left: 25px;
+}
