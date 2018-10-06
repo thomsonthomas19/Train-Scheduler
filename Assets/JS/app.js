@@ -28,8 +28,8 @@ scheduleTab.on("click", function () {
 });
 // Steps to complete:
 
-var now = moment("mm:dd");
-console.log(now);
+var now = moment().format("hh:mm");
+console.log(` Now: ${now}`);
 
 // 1. Initialize Firebase
 var config = {
@@ -91,22 +91,28 @@ database.ref().on("child_added", function (childSnapshot) {
     var trTime = childSnapshot.val().time;
     var trFreq = childSnapshot.val().freq;
 
-    // Employee Info
     console.log(trName);
     console.log(trDestination);
     console.log(trTime);
     console.log(trFreq);
 
-// MOMENT JS GOES HERE FOR TIME CONVERSION, NEXT ARRIVAL, AND MINUTES AWAY
+    var firstTimeConverted = moment(trTime, "HH:mm").subtract(1, "years");
+    var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
+    var tRemainder = diffTime % trFreq;
+    var tMinutesTillTrain = trFreq - tRemainder;
+    var nextTrain = moment().add(tMinutesTillTrain, "minutes");
+
+
+
 
     // Create the new row
-    var newRow = $("<tr>").append(
+    var newRow = $("<tr class='has-text-centered'>").append(
         $("<td>").text(trName),
         $("<td>").text(trDestination),
         $("<td>").text(trTime),
         $("<td>").text(trFreq),
-        $("<td>").text("placeholder"),
-        $("<td>").text("placeholder")
+        $("<td>").text(nextTrain.format("HH:mm")),
+        $("<td>").text(tMinutesTillTrain)
     );
 
     // Append the new row to the table
